@@ -3,8 +3,7 @@ using System;
 
 namespace FonotradeInvoiceControl.VHSYS.Models.Response
 {
-    public class VHSYSRegisterInvoiceResponse : VHSYSBaseResponse
+    public class VHSYSRegisterInvoiceResponse : VHSYSBaseResponse<VHSYSInvoice>
     {
-        public VHSYSInvoice Data { get; set; }
     }
 }

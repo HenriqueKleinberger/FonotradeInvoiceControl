@@ -28,7 +28,6 @@ namespace FonotradeInvoiceControlTest.UnitTests.ExcelUtils
             Assert.Equal(4, result.Count);
             Assert.Equal(JsonConvert.SerializeObject(new InvoiceDTO()
             {
-                Batch = 1,
                 Description = "Curso On-Line - Transtornos Motores de Fala - Dra 1 - ministrado em setembro/2021",
                 TaxIdNumber = "603.322.530-90",
                 Technician = "Tec1-Set/2021",
@@ -36,7 +35,6 @@ namespace FonotradeInvoiceControlTest.UnitTests.ExcelUtils
             }), JsonConvert.SerializeObject(result[0]));
             Assert.Equal(JsonConvert.SerializeObject(new InvoiceDTO()
             {
-                Batch = 1,
                 Description = "Curso On-Line - Transtornos Motores de Fala � Dra 2 - ministrado em setembro/2021",
                 TaxIdNumber = "635.129.990-00",
                 Technician = "Tec2-Set/2021",
@@ -44,7 +42,6 @@ namespace FonotradeInvoiceControlTest.UnitTests.ExcelUtils
             }), JsonConvert.SerializeObject(result[1]));
             Assert.Equal(JsonConvert.SerializeObject(new InvoiceDTO()
             {
-                Batch = 2,
                 Description = "Curso On-Line - Transtornos Motores de Fala - Dra 3 - ministrado em setembro/2021",
                 TaxIdNumber = "631.485.600-00",
                 Technician = "Tec3-Set/2021",
@@ -52,7 +49,6 @@ namespace FonotradeInvoiceControlTest.UnitTests.ExcelUtils
             }), JsonConvert.SerializeObject(result[2]));
             Assert.Equal(JsonConvert.SerializeObject(new InvoiceDTO()
             {
-                Batch = 3,
                 Description = "Curso On-Line - Transtornos Motores de Fala - Dra 4 - ministrado em setembro/2021",
                 TaxIdNumber = "626.536.040-00",
                 Technician = "Tec4-Set/2021",

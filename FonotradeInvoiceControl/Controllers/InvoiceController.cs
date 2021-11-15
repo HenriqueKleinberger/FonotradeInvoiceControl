@@ -9,6 +9,7 @@ using FonotradeInvoiceControl.VHSYS.Services.Interfaces;
 using Newtonsoft.Json;
 using RestSharp;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FonotradeInvoiceControl.Controllers
 {
@@ -27,10 +28,11 @@ namespace FonotradeInvoiceControl.Controllers
         }
 
         [HttpPost("register-invoice")]
-        public IEnumerable<InvoiceDTO> RegisterInvoice(IFormFile file)
+        public IActionResult RegisterInvoice(IFormFile file)
         {
-            _invoiceBLL.RegisterInvoicesFromFile(file);
-            return new List<InvoiceDTO>();
+            List<InvoiceFeedbackDTO> invoicesFeedbackDTO = _invoiceBLL.RegisterInvoicesFromFile(file);
+            var stream = new InvoiceFeedbackFileGenerator(file, invoicesFeedbackDTO).Generate();
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", file.Name);
         }
     }
 }

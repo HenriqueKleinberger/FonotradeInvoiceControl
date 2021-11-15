@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace FonotradeInvoiceControl.VHSYS.Models.Responses
 {
-    public class VHSYSClientResponse : VHSYSBaseResponse<IEnumerable<VHSYSClient>>
+    public class VHSYSErrorResponse : VHSYSBaseResponse<String>
     {
     }
 }

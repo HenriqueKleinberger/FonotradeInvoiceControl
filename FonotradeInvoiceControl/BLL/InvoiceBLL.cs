@@ -7,6 +7,7 @@ using FonotradeInvoiceControl.VHSYS.Models;
 using FonotradeInvoiceControl.VHSYS.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using FonotradeInvoiceControl.Exceptions;
 
 namespace FonotradeInvoiceControl.BLL
 {
@@ -25,15 +26,32 @@ namespace FonotradeInvoiceControl.BLL
         }
 
 
-        public void RegisterInvoicesFromFile(IFormFile file)
+        public List<InvoiceFeedbackDTO> RegisterInvoicesFromFile(IFormFile file)
         {
             IEnumerable<InvoiceDTO> invoicesDto = ParseInvoiceFile.Parse(file);
+            List<InvoiceFeedbackDTO> invoicesFeedbacksDTO = RegisterInvoices(invoicesDto);
+            return invoicesFeedbacksDTO;
+        }
+
+        private List<InvoiceFeedbackDTO> RegisterInvoices(IEnumerable<InvoiceDTO> invoicesDto)
+        {
+            List<InvoiceFeedbackDTO> invoicesFeedbacksDTO = new List<InvoiceFeedbackDTO>();
             foreach (InvoiceDTO invoice in invoicesDto)
             {
-                VHSYSClient vHSYSClient = _vhsysClientService.getClientByCnpj(invoice.TaxIdNumber);
-                _vhsysInvoiceService.RegisterInvoice(invoice, vHSYSClient);
+                try
+                {
+                    ClientDTO clientDTO = _vhsysClientService.getClientByCnpj(invoice.TaxIdNumber);
+                    InvoiceFeedbackDTO invoiceFeedbackDTO = _vhsysInvoiceService.RegisterInvoice(invoice, clientDTO);
+                    invoicesFeedbacksDTO.Add(invoiceFeedbackDTO);
+                }
+                catch (VHSYSServiceException exception)
+                {
+                    invoicesFeedbacksDTO.Add(new InvoiceFeedbackDTO() { Feedback = exception.Message, InvoiceDTO = invoice });
+                }
 
             }
+
+            return invoicesFeedbacksDTO;
         }
     }
 }

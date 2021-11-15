@@ -9,27 +9,33 @@ using FonotradeInvoiceControl.DTO;
 using FonotradeInvoiceControl.VHSYS.Models.Requests;
 using System;
 using FonotradeInvoiceControl.VHSYS.Models.Response;
+using FonotradeInvoiceControl.Exceptions;
+using FonotradeInvoiceControl.Mappers;
 
 namespace FonotradeInvoiceControl.VHSYS.Services
 {
-    public class VHSYSInvoiceService : IVHSYSInvoiceService
+    public class VHSYSInvoiceService : VHSYSService, IVHSYSInvoiceService
     {
-        private readonly IVHSYSService _vhsysService;
-        private readonly IConfiguration _config;
+        public VHSYSInvoiceService(IConfiguration config) : base(config) {}
 
-        public VHSYSInvoiceService(IVHSYSService vhsysService, IConfiguration config)
+        public InvoiceFeedbackDTO RegisterInvoice(InvoiceDTO invoice, ClientDTO clientDTO)
         {
-            _vhsysService = vhsysService;
-            _config = config;
+            IRestResponse response = Register(invoice, clientDTO);
+
+            VHSYSRegisterInvoiceResponse registerInvoiceResponse = JsonConvert.DeserializeObject<VHSYSRegisterInvoiceResponse>(response.Content);
+            ValidateResponse(response, registerInvoiceResponse);
+
+            return registerInvoiceResponse.ToInvoiceFeedbackDTO(invoice);
         }
 
-        public VHSYSRegisterInvoiceResponse RegisterInvoice(InvoiceDTO invoice, VHSYSClient vhsysClient)
+
+
+        private IRestResponse Register(InvoiceDTO invoice, ClientDTO clientDTO)
         {
             int environment = _config.GetValue<int>("VHSYS:ApiConfig:environment");
-            VHSYSRegisterInvoiceRequest invoiceRequest = new VHSYSRegisterInvoiceRequest(invoice, vhsysClient, environment);
-            IRestResponse response = _vhsysService.Post("notas-servico", JsonConvert.SerializeObject(invoiceRequest));
-            VHSYSRegisterInvoiceResponse registerInvoiceResponse = JsonConvert.DeserializeObject<VHSYSRegisterInvoiceResponse>(response.Content);
-            return registerInvoiceResponse;
+            VHSYSRegisterInvoiceRequest invoiceRequest = new VHSYSRegisterInvoiceRequest(invoice, clientDTO, environment);
+            IRestResponse response = Post("notas-servico", JsonConvert.SerializeObject(invoiceRequest));
+            return response;
         }
     }
 }

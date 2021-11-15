@@ -56,11 +56,11 @@ namespace FonotradeInvoiceControl.VHSYS.Models.Requests
         [JsonProperty("atividade")]
         public int BusinessCode { get; set; }
 
-        public VHSYSRegisterInvoiceRequest(InvoiceDTO invoice, VHSYSClient vhsysClient, int environment)
+        public VHSYSRegisterInvoiceRequest(InvoiceDTO invoice, ClientDTO clientDTO, int environment)
         {
             Environment = environment;
-            ClientId = vhsysClient.Id;
-            ClientName = vhsysClient.Name;
+            ClientId = clientDTO.ExternalSystemId;
+            ClientName = clientDTO.Name;
             ServiceDescription = invoice.Description;
             ServiceValue = invoice.Value;
             TotalValue = invoice.Value;

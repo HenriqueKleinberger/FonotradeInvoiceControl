@@ -1,11 +1,9 @@
-using FonotradeInvoiceControl.VHSYS.Models;
-using RestSharp;
-using System;
+using FonotradeInvoiceControl.DTO;
 
 namespace FonotradeInvoiceControl.VHSYS.Services.Interfaces
 {
     public interface IVHSYSClientService
     {
-        public VHSYSClient getClientByCnpj(string cpfCnpj);
+        public ClientDTO getClientByCnpj(string cpfCnpj);
     }
 }

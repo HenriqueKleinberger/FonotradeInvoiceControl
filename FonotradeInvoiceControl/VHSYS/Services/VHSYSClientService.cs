@@ -1,31 +1,27 @@
 using Microsoft.Extensions.Configuration;
-using FonotradeInvoiceControl.VHSYS.Models;
 using FonotradeInvoiceControl.VHSYS.Services.Interfaces;
 using Newtonsoft.Json;
 using RestSharp;
 using System.Linq;
 using FonotradeInvoiceControl.VHSYS.Models.Responses;
+using FonotradeInvoiceControl.Mappers;
+using FonotradeInvoiceControl.DTO;
 
 namespace FonotradeInvoiceControl.VHSYS.Services
 {
-    public class VHSYSClientService : IVHSYSClientService
+    public class VHSYSClientService : VHSYSService, IVHSYSClientService
     {
-        private readonly IVHSYSService _vhsysService;
-        private readonly IConfiguration _config;
+        public VHSYSClientService(IConfiguration config) : base(config) {}
 
-        public VHSYSClientService(IVHSYSService vhsysService, IConfiguration config)
-        {
-            _vhsysService = vhsysService;
-            _config = config;
-        }
-
-        public VHSYSClient getClientByCnpj(string cpfCnpj)
+        public ClientDTO getClientByCnpj(string cpfCnpj)
         {
             int environment = _config.GetValue<int>("VHSYS:ApiConfig:environment");
-            IRestResponse response = _vhsysService.Get($"clientes?ambiente={environment}&cnpj_cliente={cpfCnpj}");
+            IRestResponse response = Get($"clientes?ambiente={environment}&cnpj_cliente={cpfCnpj}");
             VHSYSClientResponse clientResponse = JsonConvert.DeserializeObject<VHSYSClientResponse>(response.Content);
-            VHSYSClient vhsysClient = clientResponse.Data.FirstOrDefault();
-            return vhsysClient;
+            
+            ValidateResponse(response, clientResponse);
+
+            return clientResponse.Data.FirstOrDefault().ToClientDTO();
         }
     }
 }

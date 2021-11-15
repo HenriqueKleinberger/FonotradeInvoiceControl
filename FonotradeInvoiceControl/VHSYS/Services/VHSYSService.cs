@@ -1,12 +1,17 @@
 using Microsoft.Extensions.Configuration;
 using FonotradeInvoiceControl.VHSYS.Services.Interfaces;
 using RestSharp;
+using FonotradeInvoiceControl.VHSYS.Models.Response;
+using System;
+using FonotradeInvoiceControl.Exceptions;
+using Newtonsoft.Json;
+using FonotradeInvoiceControl.VHSYS.Models.Responses;
 
 namespace FonotradeInvoiceControl.VHSYS.Services
 {
     public class VHSYSService : IVHSYSService
     {
-        private readonly IConfiguration _config;
+        protected readonly IConfiguration _config;
 
         public VHSYSService(IConfiguration config)
         {
@@ -36,6 +41,14 @@ namespace FonotradeInvoiceControl.VHSYS.Services
 
             var response = client.Post(request);
             return response;
+        }
+
+        protected void ValidateResponse<T>(IRestResponse response, VHSYSBaseResponse<T> registerInvoiceResponse)
+        {
+            if (!registerInvoiceResponse.IsValid())
+            {
+                throw new VHSYSServiceException(JsonConvert.DeserializeObject<VHSYSErrorResponse>(response.Content).Data);
+            }
         }
     }
 }

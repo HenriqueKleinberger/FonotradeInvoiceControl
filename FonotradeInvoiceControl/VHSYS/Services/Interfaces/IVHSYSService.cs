@@ -1,5 +1,4 @@
 using RestSharp;
-using System;
 
 namespace FonotradeInvoiceControl.VHSYS.Services.Interfaces
 {
