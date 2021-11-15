@@ -26,10 +26,10 @@ namespace FonotradeInvoiceControl.Controllers
             _invoiceBLL = invoiceBLL;
         }
 
-        [HttpPost("single-file")]
-        public IEnumerable<InvoiceDTO> Get(IFormFile file)
+        [HttpPost("register-invoice")]
+        public IEnumerable<InvoiceDTO> RegisterInvoice(IFormFile file)
         {
-            _invoiceBLL.IssueInvoicesFromFile(file);
+            _invoiceBLL.RegisterInvoicesFromFile(file);
             return new List<InvoiceDTO>();
         }
     }

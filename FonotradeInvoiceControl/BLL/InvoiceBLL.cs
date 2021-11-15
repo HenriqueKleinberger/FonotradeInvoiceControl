@@ -12,23 +12,27 @@ namespace FonotradeInvoiceControl.BLL
 {
     public class InvoiceBLL : IInvoiceBLL
     {
-        private readonly IVHSYSClientService _vhsysClientService;
-
         private readonly ILogger<InvoiceBLL> _logger;
+        private readonly IVHSYSClientService _vhsysClientService;
+        private readonly IVHSYSInvoiceService _vhsysInvoiceService;
 
-        public InvoiceBLL(ILogger<InvoiceBLL> logger, IVHSYSClientService vhsysClientService)
+
+        public InvoiceBLL(ILogger<InvoiceBLL> logger, IVHSYSClientService vhsysClientService, IVHSYSInvoiceService vhsysInvoiceService)
         {
             _logger = logger;
             _vhsysClientService = vhsysClientService;
+            _vhsysInvoiceService = vhsysInvoiceService;
         }
 
 
-        public void IssueInvoicesFromFile(IFormFile file)
+        public void RegisterInvoicesFromFile(IFormFile file)
         {
             IEnumerable<InvoiceDTO> invoicesDto = ParseInvoiceFile.Parse(file);
             foreach (InvoiceDTO invoice in invoicesDto)
             {
                 VHSYSClient vHSYSClient = _vhsysClientService.getClientByCnpj(invoice.TaxIdNumber);
+                _vhsysInvoiceService.RegisterInvoice(invoice, vHSYSClient);
+
             }
         }
     }

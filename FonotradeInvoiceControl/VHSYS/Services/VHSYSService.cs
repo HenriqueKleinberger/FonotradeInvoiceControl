@@ -24,5 +24,18 @@ namespace FonotradeInvoiceControl.VHSYS.Services
             var response = client.Get(request);
             return response;
         }
+
+        public IRestResponse Post(string url, string body)
+        {
+            var client = new RestClient("https://api.vhsys.com/v2/");
+
+            var request = new RestRequest(url, DataFormat.Json);
+            request.AddHeader("access-token", _config.GetValue<string>("VHSYS:ApiConfig:access-token"));
+            request.AddHeader("secret-access-token", _config.GetValue<string>("VHSYS:ApiConfig:secret-access-token"));
+            request.AddJsonBody(body);
+
+            var response = client.Post(request);
+            return response;
+        }
     }
 }

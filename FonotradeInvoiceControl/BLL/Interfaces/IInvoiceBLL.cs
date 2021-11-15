@@ -4,6 +4,6 @@ namespace FonotradeInvoiceControl.BLL.Interfaces
 {
     public interface IInvoiceBLL
     {
-        public void IssueInvoicesFromFile(IFormFile file);
+        public void RegisterInvoicesFromFile(IFormFile file);
     }
 }

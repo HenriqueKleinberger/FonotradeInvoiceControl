@@ -10,10 +10,10 @@ namespace FonotradeInvoiceControl.ExcelUtils
     {
         private const int FIRST_TABLE_ROW = 2;
         private const int BATCH = 1;
-        private const int TAX_ID_NUMBER = 2;
-        private const int DESCRIPTION = 3;
-        private const int TECHNICIAN = 4;
-        private const int VALUE = 5;
+        private const int TAX_ID_NUMBER = 4;
+        private const int DESCRIPTION = 5;
+        private const int TECHNICIAN = 6;
+        private const int VALUE = 7;
 
         public static IEnumerable<InvoiceDTO> Parse(IFormFile file)
         {
@@ -38,7 +38,6 @@ namespace FonotradeInvoiceControl.ExcelUtils
             {
                 return new InvoiceDTO()
                 {
-                    Batch = Convert.ToInt32(worksheet.Cells[row, BATCH].Value.ToString()),
                     TaxIdNumber = worksheet.Cells[row, TAX_ID_NUMBER].Value.ToString(),
                     Description = worksheet.Cells[row, DESCRIPTION].Value.ToString(),
                     Technician = worksheet.Cells[row, TECHNICIAN].Value.ToString(),

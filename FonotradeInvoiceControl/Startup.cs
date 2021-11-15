@@ -32,6 +32,7 @@ namespace FonotradeInvoiceControl
             services.AddScoped<IVHSYSService, VHSYSService>();
             services.AddScoped<IVHSYSClientService, VHSYSClientService>();
             services.AddScoped<IInvoiceBLL, InvoiceBLL>();
+            services.AddScoped<IVHSYSInvoiceService, VHSYSInvoiceService>();
             services.AddControllers();
             services.AddSwaggerGen();
         }

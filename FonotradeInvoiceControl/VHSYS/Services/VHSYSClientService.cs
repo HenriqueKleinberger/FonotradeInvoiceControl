@@ -4,6 +4,7 @@ using FonotradeInvoiceControl.VHSYS.Services.Interfaces;
 using Newtonsoft.Json;
 using RestSharp;
 using System.Linq;
+using FonotradeInvoiceControl.VHSYS.Models.Responses;
 
 namespace FonotradeInvoiceControl.VHSYS.Services
 {
@@ -23,7 +24,7 @@ namespace FonotradeInvoiceControl.VHSYS.Services
             int environment = _config.GetValue<int>("VHSYS:ApiConfig:environment");
             IRestResponse response = _vhsysService.Get($"clientes?ambiente={environment}&cnpj_cliente={cpfCnpj}");
             VHSYSClientResponse clientResponse = JsonConvert.DeserializeObject<VHSYSClientResponse>(response.Content);
-            VHSYSClient vhsysClient = clientResponse.Clients.FirstOrDefault();
+            VHSYSClient vhsysClient = clientResponse.Data.FirstOrDefault();
             return vhsysClient;
         }
     }
