@@ -53,7 +53,7 @@ namespace FonotradeInvoiceControl.VHSYS.Models.Requests
         [JsonProperty("status_pedido")]
         public String Status { get; set; }
 
-        [JsonProperty("atividade")]
+        [JsonProperty("itemLista_servico")]
         public int BusinessCode { get; set; }
 
         public VHSYSRegisterInvoiceRequest(InvoiceDTO invoice, ClientDTO clientDTO, int environment)
