@@ -43,12 +43,12 @@ namespace FonotradeInvoiceControl.ExcelUtils
                     string cellRange = rowStart.ToString() + ":" + rowEnd.ToString();
                 _invoicesFeedback.ForEach(invoiceFeedback => {
 
-                    var searchCell = from cell in _package.Workbook.Worksheets[0].Cells[cellRange] //you can define your own range of cells for lookup
+                    var searchCell = from cell in _package.Workbook.Worksheets[0].Cells[cellRange]
                                      where cell.Value.ToString() == invoiceFeedback.InvoiceDTO.TaxIdNumber
                                      select cell.Start.Row;
 
                     int rowNum = searchCell.First();
-                    GenerateFeedback(rowNum);
+                    GenerateFeedback(rowNum, invoiceFeedback.Feedback);
 
                 });
 
@@ -56,9 +56,9 @@ namespace FonotradeInvoiceControl.ExcelUtils
             }
 
 
-            void GenerateFeedback(int row)
+            void GenerateFeedback(int row, string feedback)
             {
-                _package.Workbook.Worksheets[0].Cells[row, FEEDBACK_COLUMN].Value = "2";
+                _package.Workbook.Worksheets[0].Cells[row, FEEDBACK_COLUMN].Value = feedback;
             }
         }
 

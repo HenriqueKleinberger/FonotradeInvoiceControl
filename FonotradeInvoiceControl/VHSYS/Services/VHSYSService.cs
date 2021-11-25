@@ -6,6 +6,7 @@ using System;
 using FonotradeInvoiceControl.Exceptions;
 using Newtonsoft.Json;
 using FonotradeInvoiceControl.VHSYS.Models.Responses;
+using Newtonsoft.Json.Linq;
 
 namespace FonotradeInvoiceControl.VHSYS.Services
 {
@@ -43,12 +44,20 @@ namespace FonotradeInvoiceControl.VHSYS.Services
             return response;
         }
 
-        protected void ValidateResponse<T>(IRestResponse response, VHSYSBaseResponse<T> registerInvoiceResponse)
+        protected void ValidateResponse(IRestResponse response)
         {
-            if (!registerInvoiceResponse.IsValid())
+            JObject jObject = JObject.Parse(response.Content);
+            if (jObject["code"].ToString() == "403")
             {
-                throw new VHSYSServiceException(JsonConvert.DeserializeObject<VHSYSErrorResponse>(response.Content).Data);
+                throw new VHSYSServiceException(jObject["data"].ToString());
             }
+        }
+
+        protected T ParseResponse<T>(IRestResponse response)
+        {
+            ValidateResponse(response);
+            T parsed = JsonConvert.DeserializeObject<T>(response.Content);
+            return parsed;
         }
     }
 }

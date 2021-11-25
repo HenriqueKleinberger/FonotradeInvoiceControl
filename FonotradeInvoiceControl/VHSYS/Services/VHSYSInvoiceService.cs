@@ -21,14 +21,10 @@ namespace FonotradeInvoiceControl.VHSYS.Services
         public InvoiceFeedbackDTO RegisterInvoice(InvoiceDTO invoice, ClientDTO clientDTO)
         {
             IRestResponse response = Register(invoice, clientDTO);
+            VHSYSRegisterInvoiceResponse registerInvoiceResponse = ParseResponse<VHSYSRegisterInvoiceResponse>(response);
 
-            VHSYSRegisterInvoiceResponse registerInvoiceResponse = JsonConvert.DeserializeObject<VHSYSRegisterInvoiceResponse>(response.Content);
-            ValidateResponse(response, registerInvoiceResponse);
-
-            return registerInvoiceResponse.ToInvoiceFeedbackDTO(invoice);
+            return registerInvoiceResponse.Data.ToInvoiceFeedbackDTO(invoice);
         }
-
-
 
         private IRestResponse Register(InvoiceDTO invoice, ClientDTO clientDTO)
         {

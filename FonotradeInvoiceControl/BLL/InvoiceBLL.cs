@@ -28,9 +28,16 @@ namespace FonotradeInvoiceControl.BLL
 
         public List<InvoiceFeedbackDTO> RegisterInvoicesFromFile(IFormFile file)
         {
-            IEnumerable<InvoiceDTO> invoicesDto = ParseInvoiceFile.Parse(file);
+            IEnumerable<InvoiceDTO> invoicesDto = GetInvoicesFromFile(file);
             List<InvoiceFeedbackDTO> invoicesFeedbacksDTO = RegisterInvoices(invoicesDto);
             return invoicesFeedbacksDTO;
+        }
+
+        private static IEnumerable<InvoiceDTO> GetInvoicesFromFile(IFormFile file)
+        {
+            ParseInvoiceFile fileParser = new ParseInvoiceFile(file);
+            IEnumerable<InvoiceDTO> invoicesDto = fileParser.Parse();
+            return invoicesDto;
         }
 
         private List<InvoiceFeedbackDTO> RegisterInvoices(IEnumerable<InvoiceDTO> invoicesDto)
