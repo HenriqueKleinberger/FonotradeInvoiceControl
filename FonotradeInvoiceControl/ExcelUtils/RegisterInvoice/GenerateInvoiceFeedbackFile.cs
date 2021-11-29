@@ -6,12 +6,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace FonotradeInvoiceControl.ExcelUtils
+namespace FonotradeInvoiceControl.ExcelUtils.RegisterInvoice
 {
     public class InvoiceFeedbackFileGenerator
     {
-        private const int FIRST_TABLE_ROW = 2;
-        private const int FEEDBACK_COLUMN = 8;
         private IFormFile _file;
         private ExcelPackage _package;
         private List<InvoiceFeedbackDTO> _invoicesFeedback;
@@ -37,19 +35,20 @@ namespace FonotradeInvoiceControl.ExcelUtils
             {
                 int rows = _package.Workbook.Worksheets[0].Dimension.Rows;
 
-                    int rowStart = _package.Workbook.Worksheets[0].Dimension.Start.Row;
-                    int rowEnd = _package.Workbook.Worksheets[0].Dimension.End.Row;
+                int rowStart = _package.Workbook.Worksheets[0].Dimension.Start.Row;
+                int rowEnd = _package.Workbook.Worksheets[0].Dimension.End.Row;
 
-                    string cellRange = rowStart.ToString() + ":" + rowEnd.ToString();
+                string cellRange = rowStart.ToString() + ":" + rowEnd.ToString();
+                
                 _invoicesFeedback.ForEach(invoiceFeedback => {
-
-                    var searchCell = from cell in _package.Workbook.Worksheets[0].Cells[cellRange]
-                                     where cell.Value.ToString() == invoiceFeedback.InvoiceDTO.TaxIdNumber
-                                     select cell.Start.Row;
-
-                    int rowNum = searchCell.First();
-                    GenerateFeedback(rowNum, invoiceFeedback.Feedback);
-
+                    for(int row = 1; row <= rowEnd; row++)
+                    {
+                        if(_package.Workbook.Worksheets[0].Cells[row, RegisterInvoiceExcelFile.TAX_ID_NUMBER].Value.ToString() == invoiceFeedback.InvoiceDTO.TaxIdNumber && _package.Workbook.Worksheets[0].Cells[row, RegisterInvoiceExcelFile.TECHNICIAN].Value.ToString() == invoiceFeedback.InvoiceDTO.Technician)
+                        {
+                            GenerateFeedback(row, invoiceFeedback.Feedback);
+                            break;
+                        }
+                    }
                 });
 
                 return GetGeneratedPackage();
@@ -58,7 +57,7 @@ namespace FonotradeInvoiceControl.ExcelUtils
 
             void GenerateFeedback(int row, string feedback)
             {
-                _package.Workbook.Worksheets[0].Cells[row, FEEDBACK_COLUMN].Value = feedback;
+                _package.Workbook.Worksheets[0].Cells[row, RegisterInvoiceExcelFile.FEEDBACK].Value = feedback;
             }
         }
 

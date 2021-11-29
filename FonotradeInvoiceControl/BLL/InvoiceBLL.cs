@@ -8,6 +8,7 @@ using FonotradeInvoiceControl.VHSYS.Services.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using FonotradeInvoiceControl.Exceptions;
+using FonotradeInvoiceControl.ExcelUtils.RegisterInvoice;
 
 namespace FonotradeInvoiceControl.BLL
 {

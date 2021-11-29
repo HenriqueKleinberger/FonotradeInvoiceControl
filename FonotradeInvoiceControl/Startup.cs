@@ -1,19 +1,16 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using FonotradeInvoiceControl.BLL;
 using FonotradeInvoiceControl.BLL.Interfaces;
 using FonotradeInvoiceControl.VHSYS.Services;
 using FonotradeInvoiceControl.VHSYS.Services.Interfaces;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
+using System.IO;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FonotradeInvoiceControl
 {
@@ -35,6 +32,18 @@ namespace FonotradeInvoiceControl
             services.AddScoped<IVHSYSInvoiceService, VHSYSInvoiceService>();
             services.AddControllers();
             services.AddSwaggerGen();
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Fonotrade Invoice Control API",
+                    Description = "API de controle para as notas fiscais da Fonotrade"
+                });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                options.IncludeXmlComments(xmlPath);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,7 +58,7 @@ namespace FonotradeInvoiceControl
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Fonotrade Invoice Control API");
             });
 
             app.UseHttpsRedirection();

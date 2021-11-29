@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Http;
 using Moq;
 using FonotradeInvoiceControl.DTO;
-using FonotradeInvoiceControl.ExcelUtils;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using Xunit;
 using System.Linq;
 using Newtonsoft.Json;
+using FonotradeInvoiceControl.ExcelUtils.RegisterInvoice;
 
 namespace FonotradeInvoiceControlTest.UnitTests.ExcelUtils
 {
