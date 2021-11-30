@@ -17,9 +17,9 @@ namespace FonotradeInvoiceControl.ExcelUtils.RegisterInvoice
     {
         public static readonly int FIRST_TABLE_ROW = 2;
         public static readonly int TAX_ID_NUMBER = 4;
-        public static readonly int DESCRIPTION = 5;
-        public static readonly int TECHNICIAN = 6;
-        public static readonly int VALUE = 7;
-        public static readonly int FEEDBACK = 8;
+        public static readonly int DESCRIPTION = 6;
+        public static readonly int TECHNICIAN = 7;
+        public static readonly int VALUE = 8;
+        public static readonly int FEEDBACK = 9;
     }
 }
