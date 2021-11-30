@@ -4,6 +4,7 @@ using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using FonotradeInvoiceControl.Constants;
+using FonotradeInvoiceControl.Exceptions;
 
 namespace FonotradeInvoiceControl.ExcelUtils.RegisterInvoice
 {
@@ -21,14 +22,20 @@ namespace FonotradeInvoiceControl.ExcelUtils.RegisterInvoice
 
         public IEnumerable<InvoiceDTO> Parse()
         {
-            var stream = _file.OpenReadStream();
-            using (ExcelPackage package = new ExcelPackage(stream))
+            try
             {
-                ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
+                var stream = _file.OpenReadStream();
+                using (ExcelPackage package = new ExcelPackage(stream))
+                {
+                    ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
 
-                int rows = worksheet.Dimension.Rows;
-                
-                for (int row = RegisterInvoiceExcelFile.FIRST_TABLE_ROW; row <= rows; row++) AddInvoiceByRow(worksheet, row);
+                    int rows = worksheet.Dimension.Rows;
+
+                    for (int row = RegisterInvoiceExcelFile.FIRST_TABLE_ROW; row <= rows; row++) AddInvoiceByRow(worksheet, row);
+                }
+            } catch (Exception ex)
+            {
+                throw new ParseInvoiceFileException($"Não foi possivel analisar a planilha Excel. {ex.Message}");
             }
             return _invoices;
 
@@ -37,19 +44,26 @@ namespace FonotradeInvoiceControl.ExcelUtils.RegisterInvoice
 
         private void AddInvoiceByRow(ExcelWorksheet worksheet, int row)
         {
-            if (ShouldParseRow(worksheet, row))
+            try
             {
-                InvoiceDTO invoice = new InvoiceDTO()
+                if (ShouldParseRow(worksheet, row))
                 {
-                    TaxIdNumber = worksheet.Cells[row, RegisterInvoiceExcelFile.TAX_ID_NUMBER].Value.ToString(),
-                    Description = worksheet.Cells[row, RegisterInvoiceExcelFile.DESCRIPTION].Value.ToString(),
-                    Technician = worksheet.Cells[row, RegisterInvoiceExcelFile.TECHNICIAN].Value.ToString(),
-                    Value = decimal.Parse(worksheet.Cells[row, RegisterInvoiceExcelFile.VALUE].Value.ToString())
-                };
+                    InvoiceDTO invoice = new InvoiceDTO()
+                    {
+                        TaxIdNumber = worksheet.Cells[row, RegisterInvoiceExcelFile.TAX_ID_NUMBER].Value.ToString(),
+                        Description = worksheet.Cells[row, RegisterInvoiceExcelFile.DESCRIPTION].Value.ToString(),
+                        Technician = worksheet.Cells[row, RegisterInvoiceExcelFile.TECHNICIAN].Value.ToString(),
+                        Value = decimal.Parse(worksheet.Cells[row, RegisterInvoiceExcelFile.VALUE].Value.ToString())
+                    };
 
-                _invoices.Add(invoice);
+                    _invoices.Add(invoice);
+                }
+            } catch (Exception ex)
+            {
+                throw new ParseInvoiceFileException($"Erro planilha excel na linha: {row}. {ex.Message}");
             }
         }
+        
 
         private bool ShouldParseRow(ExcelWorksheet worksheet, int row)
         {

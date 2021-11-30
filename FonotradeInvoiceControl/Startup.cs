@@ -11,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.IO;
 using System;
+using FonotradeInvoiceControl.Middleware;
 
 namespace FonotradeInvoiceControl
 {
@@ -66,7 +67,7 @@ namespace FonotradeInvoiceControl
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseMiddleware<ErrorHandlerMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
