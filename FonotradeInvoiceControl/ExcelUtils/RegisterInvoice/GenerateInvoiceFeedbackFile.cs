@@ -43,9 +43,12 @@ namespace FonotradeInvoiceControl.ExcelUtils.RegisterInvoice
                 _invoicesFeedback.ForEach(invoiceFeedback => {
                     for(int row = 1; row <= rowEnd; row++)
                     {
-                        if(_package.Workbook.Worksheets[0].Cells[row, RegisterInvoiceExcelFile.TAX_ID_NUMBER].Value.ToString() == invoiceFeedback.InvoiceDTO.TaxIdNumber && _package.Workbook.Worksheets[0].Cells[row, RegisterInvoiceExcelFile.TECHNICIAN].Value.ToString() == invoiceFeedback.InvoiceDTO.Technician)
+                        if(
+                            _package.Workbook.Worksheets[0].Cells[row, RegisterInvoiceExcelFile.TAX_ID_NUMBER].Value.ToString() == invoiceFeedback.InvoiceDTO.TaxIdNumber
+                            && _package.Workbook.Worksheets[0].Cells[row, RegisterInvoiceExcelFile.TECHNICIAN].Value.ToString() == invoiceFeedback.InvoiceDTO.Technician
+                           )
                         {
-                            GenerateFeedback(row, invoiceFeedback.Feedback);
+                            GenerateFeedback(row, invoiceFeedback);
                             break;
                         }
                     }
@@ -55,9 +58,10 @@ namespace FonotradeInvoiceControl.ExcelUtils.RegisterInvoice
             }
 
 
-            void GenerateFeedback(int row, string feedback)
+            void GenerateFeedback(int row, InvoiceFeedbackDTO invoiceFeedback)
             {
-                _package.Workbook.Worksheets[0].Cells[row, RegisterInvoiceExcelFile.FEEDBACK].Value = feedback;
+                _package.Workbook.Worksheets[0].Cells[row, RegisterInvoiceExcelFile.REGISTERED_ID].Value = invoiceFeedback.Id.ToString();
+                _package.Workbook.Worksheets[0].Cells[row, RegisterInvoiceExcelFile.FEEDBACK].Value = invoiceFeedback.Feedback;
             }
         }
 

@@ -12,6 +12,7 @@ using System.Reflection;
 using System.IO;
 using System;
 using FonotradeInvoiceControl.Middleware;
+using FonotradeInvoiceControl.Utils;
 
 namespace FonotradeInvoiceControl
 {
@@ -27,10 +28,7 @@ namespace FonotradeInvoiceControl
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IVHSYSService, VHSYSService>();
-            services.AddScoped<IVHSYSClientService, VHSYSClientService>();
-            services.AddScoped<IInvoiceBLL, InvoiceBLL>();
-            services.AddScoped<IVHSYSInvoiceService, VHSYSInvoiceService>();
+            DependencyInjector.InjectCommonDependencies(services);
             services.AddControllers();
             services.AddSwaggerGen();
             services.AddSwaggerGen(options =>
