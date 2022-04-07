@@ -6,13 +6,13 @@ namespace FonotradeInvoiceControl.VHSYS.Models.Response
 {
     public abstract class VHSYSBaseResponse<T>
     {
-        public int Code { get; set; }
+        public int code { get; set; }
 
-        public String Status { get; set; }
+        public String status { get; set; }
 
         public T Data { get; set; }
 
-        public bool IsValid() => Code == 200;
+        public bool IsValid() => code == 200;
 
         public bool ShouldSerializeData()
         {
