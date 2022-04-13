@@ -17,7 +17,7 @@ namespace FonotradeInvoiceControlTest
         protected HttpClient _httpClient { get; set; }
         protected Mock<IVHSYSService> _vhsysServiceMock { get; set; }
 
-    public IntegrationTest()
+        public IntegrationTest()
         {
             InitEnvironmentVariable();
             InitDependencyMocks();

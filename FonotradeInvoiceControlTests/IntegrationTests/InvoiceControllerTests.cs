@@ -23,12 +23,12 @@ namespace FonotradeInvoiceControlTest.IntegrationTests
         private HttpResponseMessage _response;
 
         [Fact]
-        public async Task WhenFileIsNotFormatted_ShouldReturnErrorAsync()
+        public async Task WhenVHSYSRegisterInvoice_ShouldReturnSuccessStatus()
         {
             _filePath = $"{AppDomain.CurrentDomain.BaseDirectory}/files/one_person_to_register.xlsx";
-            string cpf = "001.477.870-09";
+            InvoiceDTO invoiceDTO = Files.Constants.OnePersonToRegister.getInvoiceDTO();
 
-            MockGetClientByCpfResponseSuccess(cpf);
+            MockGetClientByCpfResponseSuccess(invoiceDTO.TaxIdNumber);
             MockPostInvoiceResponseSuccess();
             await CallRegisterInvoiceByFile();
 

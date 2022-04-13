@@ -17,7 +17,7 @@ namespace FonotradeInvoiceControlTest.UnitTests.ExcelUtils
         public void WhenParseStreamWithOnePerson_ShouldReturnOneInvoice()
         {
             _filePath = $"{AppDomain.CurrentDomain.BaseDirectory}/files/one_person_to_register.xlsx";
-
+            InvoiceDTO expectedInvoiceDto = Files.Constants.OnePersonToRegister.getInvoiceDTO();
             //Arrange
             FileStream fileStream = File.OpenRead(_filePath);
 
@@ -28,10 +28,10 @@ namespace FonotradeInvoiceControlTest.UnitTests.ExcelUtils
             InvoiceDTO invoice = invoices[0];
 
             Assert.Single(invoices);
-            Assert.Equal("001.477.870-09", invoice.TaxIdNumber);
-            Assert.Equal("Curso de Aprimoramento On-line – Alfabetização e Fonoaudiologia Clínica: Interface saúde e educação - Abril/2022", invoice.Description);
-            Assert.Equal("Apr.FonoCli-Abr/22-220405-1-1", invoice.Technician);
-            Assert.Equal(new Decimal(350.22), invoice.Value);
+            Assert.Equal(expectedInvoiceDto.TaxIdNumber, invoice.TaxIdNumber);
+            Assert.Equal(expectedInvoiceDto.Description, invoice.Description);
+            Assert.Equal(expectedInvoiceDto.Technician, invoice.Technician);
+            Assert.Equal(expectedInvoiceDto.Value, invoice.Value);
         }
 
         [Fact]
@@ -50,7 +50,7 @@ namespace FonotradeInvoiceControlTest.UnitTests.ExcelUtils
         }
 
         [Fact]
-        public void WhenPersonIsRegistered_ShouldNotReturnPerson()
+        public void WhenPersonIsAlreadyRegistered_ShouldNotReturnPerson()
         {
             _filePath = $"{AppDomain.CurrentDomain.BaseDirectory}/files/one_person_registered.xlsx";
 
