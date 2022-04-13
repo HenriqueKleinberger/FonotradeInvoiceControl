@@ -18,17 +18,15 @@ namespace FonotradeInvoiceControl
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            SetConfig(services);
+
             DependencyInjector.InjectCommonDependencies(services);
+            ConfigureClients(services);
             services.AddControllers();
             services.AddSwaggerGen();
             services.AddSwaggerGen(options =>
@@ -43,6 +41,24 @@ namespace FonotradeInvoiceControl
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 options.IncludeXmlComments(xmlPath);
             });
+        }
+
+        public virtual void SetConfig(IServiceCollection services)
+        {
+            var configurationBuilder = new ConfigurationBuilder()
+                            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                            .AddEnvironmentVariables();
+
+            Configuration = configurationBuilder.Build();
+
+            services.AddSingleton<IConfiguration>(provider => Configuration);
+
+
+        }
+
+        public virtual void ConfigureClients(IServiceCollection services)
+        {
+            services.AddScoped<IVHSYSService, VHSYSService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

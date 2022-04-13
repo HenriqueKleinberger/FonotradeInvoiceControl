@@ -6,14 +6,6 @@ namespace FonotradeInvoiceControl.VHSYS.Models.Requests
 {
     public class VHSYSRegisterInvoiceRequest : VHSYSBaseRequest
     {
-        private const int DEFAULT_BATCH = 1;
-        private const int DEFAULT_TAX_POLICY = 1;
-        private const int DEFAULT_SERVICE_NATURE = 1;
-        private const int ISSUER_ADDRESS = 0;
-        private const string RIO_DE_JANEIRO = "Rio de Janeiro";
-        private const string DEFAULT_STATUS = "Em aberto";
-        private const int DEFAULT_BUSINESS_CODE = 6359;
-
         [JsonProperty("id_cliente")]
         public int ClientId { get; set; }
 
@@ -65,14 +57,14 @@ namespace FonotradeInvoiceControl.VHSYS.Models.Requests
             ServiceValue = invoice.Value;
             TotalValue = invoice.Value;
             CalculationValue = invoice.Value;
-            Batch = DEFAULT_BATCH;
+            Batch = Constants.VHSYS.RegisterInvoice.DEFAULT_BATCH;
             SellerName = invoice.Technician;
-            TaxPolicy = DEFAULT_TAX_POLICY;
-            ServiceNature = DEFAULT_SERVICE_NATURE;
-            Place = ISSUER_ADDRESS;
-            City = RIO_DE_JANEIRO;
-            Status = DEFAULT_STATUS;
-            BusinessCode = DEFAULT_BUSINESS_CODE;
+            TaxPolicy = Constants.VHSYS.RegisterInvoice.DEFAULT_TAX_POLICY;
+            ServiceNature = Constants.VHSYS.RegisterInvoice.DEFAULT_SERVICE_NATURE;
+            Place = Constants.VHSYS.RegisterInvoice.DEFAULT_PLACE;
+            City = Constants.VHSYS.RegisterInvoice.DEFAULT_CITY;
+            Status = Constants.VHSYS.RegisterInvoice.DEFAULT_STATUS;
+            BusinessCode = Constants.VHSYS.RegisterInvoice.DEFAULT_BUSINESS_CODE;
         }
     }
 }

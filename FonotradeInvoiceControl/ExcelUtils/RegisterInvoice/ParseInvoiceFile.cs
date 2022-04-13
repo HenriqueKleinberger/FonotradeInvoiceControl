@@ -1,21 +1,21 @@
-﻿using Microsoft.AspNetCore.Http;
-using FonotradeInvoiceControl.DTO;
+﻿using FonotradeInvoiceControl.DTO;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using FonotradeInvoiceControl.Constants;
 using FonotradeInvoiceControl.Exceptions;
+using System.IO;
 
 namespace FonotradeInvoiceControl.ExcelUtils.RegisterInvoice
 {
     public class ParseInvoiceFile
     {
-        private IFormFile _file;
+        private Stream _stream;
         private List<InvoiceDTO> _invoices;
 
-        public ParseInvoiceFile(IFormFile file)
+        public ParseInvoiceFile(Stream stream)
         {
-            _file = file;
+            _stream = stream;
             _invoices = new List<InvoiceDTO>();
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
         }
@@ -24,8 +24,7 @@ namespace FonotradeInvoiceControl.ExcelUtils.RegisterInvoice
         {
             try
             {
-                var stream = _file.OpenReadStream();
-                using (ExcelPackage package = new ExcelPackage(stream))
+                using (ExcelPackage package = new ExcelPackage(_stream))
                 {
                     ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
 
@@ -38,8 +37,6 @@ namespace FonotradeInvoiceControl.ExcelUtils.RegisterInvoice
                 throw new ParseInvoiceFileException($"Não foi possivel analisar a planilha Excel. {ex.Message}");
             }
             return _invoices;
-
-            
         }
 
         private void AddInvoiceByRow(ExcelWorksheet worksheet, int row)

@@ -20,11 +20,11 @@ namespace FonotradeInvoiceControl.Controllers
     [Route("invoice")]
     public class InvoiceController : ControllerBase
     {
-        private readonly IInvoiceBLL _invoiceBLL;
+        private readonly IRegisterInvoiceBLL _invoiceBLL;
 
         private readonly ILogger<InvoiceController> _logger;
 
-        public InvoiceController(ILogger<InvoiceController> logger, IInvoiceBLL invoiceBLL)
+        public InvoiceController(ILogger<InvoiceController> logger, IRegisterInvoiceBLL invoiceBLL)
         {
             _logger = logger;
             _invoiceBLL = invoiceBLL;
@@ -44,7 +44,7 @@ namespace FonotradeInvoiceControl.Controllers
         [Produces("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")]
         public IActionResult RegisterInvoice(IFormFile file)
         {
-            List<InvoiceFeedbackDTO> invoicesFeedbackDTO = _invoiceBLL.RegisterInvoicesFromFile(file);
+            List<InvoiceFeedbackDTO> invoicesFeedbackDTO = _invoiceBLL.RegisterInvoicesFromFile(file.OpenReadStream());
             var stream = new InvoiceFeedbackFileGenerator(file, invoicesFeedbackDTO).Generate();
             return base.File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", GetFeedbackFileName(file));
         }
