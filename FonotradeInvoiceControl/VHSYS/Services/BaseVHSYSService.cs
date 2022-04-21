@@ -4,10 +4,11 @@ using RestSharp;
 using FonotradeInvoiceControl.Exceptions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using FonotradeInvoiceControl.Constants.VHSYS;
 
 namespace FonotradeInvoiceControl.VHSYS.Services
 {
-    public class BaseVHSYSService
+    public abstract class BaseVHSYSService
     {
 
         protected readonly IConfiguration _config;
@@ -18,16 +19,16 @@ namespace FonotradeInvoiceControl.VHSYS.Services
             _config = config;
             _vhsysService = vhsysService;
         }
-        public void ValidateResponse(IRestResponse response)
+        protected void ValidateResponse(IRestResponse response)
         {
             JObject jObject = JObject.Parse(response.Content);
-            if (jObject["code"].ToString() == "403")
+            if (jObject["code"].ToString() == BaseResponse.ERROR_CODE.ToString())
             {
                 throw new VHSYSServiceException(jObject["data"].ToString());
             }
         }
 
-        public T ParseResponse<T>(IRestResponse response)
+        protected T ParseResponse<T>(IRestResponse response)
         {
             ValidateResponse(response);
             return JsonConvert.DeserializeObject<T>(response.Content);

@@ -1,37 +1,26 @@
-﻿using Microsoft.AspNetCore.Http;
-using FonotradeInvoiceControl.DTO;
+﻿using FonotradeInvoiceControl.DTO;
 using OfficeOpenXml;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace FonotradeInvoiceControl.ExcelUtils.RegisterInvoice
 {
     public class InvoiceFeedbackFileGenerator
     {
-        private IFormFile _file;
+        private Stream _stream;
         private ExcelPackage _package;
         private List<InvoiceFeedbackDTO> _invoicesFeedback;
-        private IFormFile file;
 
-        public InvoiceFeedbackFileGenerator(IFormFile file)
-        {
-            this.file = file;
-        }
-
-        public InvoiceFeedbackFileGenerator(IFormFile file, List<InvoiceFeedbackDTO> invoicesFeedback)
+        public InvoiceFeedbackFileGenerator(Stream stream, List<InvoiceFeedbackDTO> invoicesFeedback)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            _file = file;
+            _stream = stream;
             _invoicesFeedback = invoicesFeedback;
         }
 
         public Stream Generate()
         {
-            var stream = _file.OpenReadStream();
-
-            using (_package = new ExcelPackage(stream))
+            using (_package = new ExcelPackage(_stream))
             {
                 int rows = _package.Workbook.Worksheets[0].Dimension.Rows;
 

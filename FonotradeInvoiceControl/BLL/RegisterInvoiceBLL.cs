@@ -25,7 +25,6 @@ namespace FonotradeInvoiceControl.BLL
             _vhsysInvoiceService = vhsysInvoiceService;
         }
 
-
         public List<InvoiceFeedbackDTO> RegisterInvoicesFromFile(Stream stream)
         {
             _stream = stream;

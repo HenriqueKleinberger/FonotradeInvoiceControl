@@ -1,7 +1,7 @@
 using FonotradeInvoiceControl.VHSYS.Models;
 using FonotradeInvoiceControl.VHSYS.Models.Responses;
 using Microsoft.AspNetCore.Http;
-using System;
+using FonotradeInvoiceControl.Constants.VHSYS;
 using System.Collections.Generic;
 
 namespace FonotradeInvoiceControlTest.Builder.VHSYS
@@ -21,7 +21,7 @@ namespace FonotradeInvoiceControlTest.Builder.VHSYS
         {
             _vhsysClientResponse = new VHSYSClientResponse();
             _vhsysClientResponse.status = this.status;
-            _vhsysClientResponse.Data = this.Data;
+            _vhsysClientResponse.data = this.Data;
             _vhsysClientResponse.code = this.code;
         }
         public VHSYSClientResponseBuilder WithStatus(string status)
@@ -30,15 +30,16 @@ namespace FonotradeInvoiceControlTest.Builder.VHSYS
             return this;
         }
 
-        public VHSYSClientResponseBuilder WithCode(int code)
+        public VHSYSClientResponseBuilder WithError()
         {
-            _vhsysClientResponse.code = code;
+            _vhsysClientResponse.code = BaseResponse.ERROR_CODE;
+            _vhsysClientResponse.data = new List<VHSYSClient>();
             return this;
         }
 
         public VHSYSClientResponseBuilder WithData(List<VHSYSClient> data)
         {
-            _vhsysClientResponse.Data = data;
+            _vhsysClientResponse.data = data;
             return this;
         }
 

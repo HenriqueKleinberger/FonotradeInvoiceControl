@@ -3,13 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using FonotradeInvoiceControl.BLL.Interfaces;
 using FonotradeInvoiceControl.DTO;
-using FonotradeInvoiceControl.ExcelUtils;
-using FonotradeInvoiceControl.VHSYS.Models;
-using FonotradeInvoiceControl.VHSYS.Services.Interfaces;
-using Newtonsoft.Json;
-using RestSharp;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.IO;
 using System;
 using FonotradeInvoiceControl.ExcelUtils.RegisterInvoice;
@@ -44,9 +38,10 @@ namespace FonotradeInvoiceControl.Controllers
         [Produces("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")]
         public IActionResult RegisterInvoice(IFormFile file)
         {
-            List<InvoiceFeedbackDTO> invoicesFeedbackDTO = _invoiceBLL.RegisterInvoicesFromFile(file.OpenReadStream());
-            var stream = new InvoiceFeedbackFileGenerator(file, invoicesFeedbackDTO).Generate();
-            return base.File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", GetFeedbackFileName(file));
+            Stream stream = file.OpenReadStream();
+            List<InvoiceFeedbackDTO> invoicesFeedbackDTO = _invoiceBLL.RegisterInvoicesFromFile(stream);
+            var responseStream = new InvoiceFeedbackFileGenerator(stream, invoicesFeedbackDTO).Generate();
+            return base.File(responseStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", GetFeedbackFileName(file));
         }
 
         private string GetFeedbackFileName(IFormFile file)

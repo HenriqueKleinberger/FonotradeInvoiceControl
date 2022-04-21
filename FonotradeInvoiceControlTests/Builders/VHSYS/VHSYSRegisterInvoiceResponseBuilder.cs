@@ -19,7 +19,7 @@ namespace FonotradeInvoiceControlTest.Builder.VHSYS
         {
             _vhsysRegisterInvoiceResponse = new VHSYSRegisterInvoiceResponse();
             _vhsysRegisterInvoiceResponse.status = this.status;
-            _vhsysRegisterInvoiceResponse.Data = this.Data;
+            _vhsysRegisterInvoiceResponse.data = this.Data;
             _vhsysRegisterInvoiceResponse.code = this.code;
         }
         public VHSYSRegisterInvoiceResponseBuilder WithStatus(string status)
@@ -36,7 +36,7 @@ namespace FonotradeInvoiceControlTest.Builder.VHSYS
 
         public VHSYSRegisterInvoiceResponseBuilder WithData(VHSYSInvoice data)
         {
-            _vhsysRegisterInvoiceResponse.Data = data;
+            _vhsysRegisterInvoiceResponse.data = data;
             return this;
         }
 
