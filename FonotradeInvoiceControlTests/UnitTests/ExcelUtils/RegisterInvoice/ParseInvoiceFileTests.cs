@@ -7,7 +7,7 @@ using System.Linq;
 using FonotradeInvoiceControl.ExcelUtils.RegisterInvoice;
 using FonotradeInvoiceControl.Exceptions;
 
-namespace FonotradeInvoiceControlTest.UnitTests.ExcelUtils
+namespace FonotradeInvoiceControlTest.UnitTests.ExcelUtils.RegisterInvoice
 {
     public class ParseInvoiceFileTests
     {
@@ -18,6 +18,7 @@ namespace FonotradeInvoiceControlTest.UnitTests.ExcelUtils
         {
             _filePath = $"{AppDomain.CurrentDomain.BaseDirectory}/files/one_person_to_register.xlsx";
             InvoiceDTO expectedInvoiceDto = Files.Constants.OnePersonToRegister.getInvoiceDTO();
+
             //Arrange
             FileStream fileStream = File.OpenRead(_filePath);
 

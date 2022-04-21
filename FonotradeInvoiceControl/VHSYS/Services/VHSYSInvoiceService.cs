@@ -20,7 +20,7 @@ namespace FonotradeInvoiceControl.VHSYS.Services
             IRestResponse response = Register(invoice, clientDTO);
             VHSYSRegisterInvoiceResponse registerInvoiceResponse = ParseResponse<VHSYSRegisterInvoiceResponse>(response);
 
-            return registerInvoiceResponse.Data.ToInvoiceFeedbackDTO(invoice);
+            return registerInvoiceResponse.data.ToInvoiceFeedbackDTO(invoice);
         }
 
         private IRestResponse Register(InvoiceDTO invoice, ClientDTO clientDTO)

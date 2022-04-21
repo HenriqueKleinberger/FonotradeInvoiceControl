@@ -3,6 +3,8 @@ using FonotradeInvoiceControl.BLL;
 using FonotradeInvoiceControl.BLL.Interfaces;
 using FonotradeInvoiceControl.VHSYS.Services;
 using FonotradeInvoiceControl.VHSYS.Services.Interfaces;
+using FonotradeInvoiceControl.Clients;
+using FonotradeInvoiceControl.Clients.Interface;
 
 namespace FonotradeInvoiceControl.Utils
 {
@@ -13,6 +15,7 @@ namespace FonotradeInvoiceControl.Utils
             services.AddScoped<IRegisterInvoiceBLL, RegisterInvoiceBLL>();
             services.AddScoped<IVHSYSInvoiceService, VHSYSInvoiceService>();
             services.AddScoped<IVHSYSClientService, VHSYSClientService>();
+            services.AddTransient<IVHSYSClient, VHSYSClient>();
         }
     }
 }

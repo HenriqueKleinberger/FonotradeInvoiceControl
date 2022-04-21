@@ -1,7 +1,5 @@
 using FonotradeInvoiceControl.DTO;
 using Xunit;
-using FonotradeInvoiceControl.VHSYS.Models;
-using FonotradeInvoiceControl.Mappers;
 using FonotradeInvoiceControl.VHSYS.Models.Requests;
 using System;
 using FonotradeInvoiceControl.Constants.VHSYS;

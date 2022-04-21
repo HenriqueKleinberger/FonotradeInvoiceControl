@@ -7,7 +7,6 @@ namespace FonotradeInvoiceControlTest.Builder.DTO
     {
         private ClientDTO _clientDTO;
 
-        private int ExternalSystemId;
         private string TaxIdNumber = "055.744.520-57";
         private string Name = "Matheus Prates";
 

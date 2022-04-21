@@ -1,6 +1,8 @@
 using Microsoft.Extensions.Configuration;
 using FonotradeInvoiceControl.VHSYS.Services.Interfaces;
 using RestSharp;
+using FonotradeInvoiceControl.Constants.VHSYS;
+using FonotradeInvoiceControl.Clients.Interface;
 
 namespace FonotradeInvoiceControl.VHSYS.Services
 {
@@ -8,34 +10,41 @@ namespace FonotradeInvoiceControl.VHSYS.Services
     {
         protected readonly IConfiguration _config;
 
-        public VHSYSService(IConfiguration config)
+        private IVHSYSClient _vhsysClient;
+        private RestRequest _request;
+        private string _url;
+
+        public VHSYSService(IConfiguration config, IVHSYSClient restClient)
         {
             _config = config;
+            _vhsysClient = restClient;
         }
 
         public IRestResponse Get(string url)
         {
-            var client = new RestClient("https://api.vhsys.com/v2/");
+            _url = url;
 
-            var request = new RestRequest(url, DataFormat.Json);
-            request.AddHeader("access-token", _config.GetValue<string>("VHSYS:ApiConfig:access-token"));
-            request.AddHeader("secret-access-token", _config.GetValue<string>("VHSYS:ApiConfig:secret-access-token"));
+            ConfigRequest();
 
-            var response = client.Get(request);
-            return response;
+            return _vhsysClient.Get(_request);
         }
 
         public IRestResponse Post(string url, string body)
         {
-            var client = new RestClient("https://api.vhsys.com/v2/");
+            _url = url;
 
-            var request = new RestRequest(url, DataFormat.Json);
-            request.AddHeader("access-token", _config.GetValue<string>("VHSYS:ApiConfig:access-token"));
-            request.AddHeader("secret-access-token", _config.GetValue<string>("VHSYS:ApiConfig:secret-access-token"));
-            request.AddJsonBody(body);
+            ConfigRequest();
+            
+            _request.AddJsonBody(body);
 
-            var response = client.Post(request);
-            return response;
+            return _vhsysClient.Post(_request);
+        }
+
+        private void ConfigRequest()
+        {
+            _request = new RestRequest(_url, DataFormat.Json);
+            _request.AddHeader("access-token", _config.GetValue<string>(VHSYSConfiguration.ACCESS_TOKEN));
+            _request.AddHeader("secret-access-token", _config.GetValue<string>(VHSYSConfiguration.SECRET_ACCESS_TOKEN));
         }
     }
 }
