@@ -64,5 +64,20 @@ namespace FonotradeInvoiceControlTest.UnitTests.ExcelUtils.RegisterInvoice
             //Assert.
             Assert.Empty(invoices);
         }
+
+        [Fact]
+        public void WhenPersonIsWithoutRegisterAction_ShouldNotReturnPerson()
+        {
+            _filePath = $"{AppDomain.CurrentDomain.BaseDirectory}/files/one_person_without_register_action.xlsx";
+
+            //Arrange
+            FileStream fileStream = File.OpenRead(_filePath);
+
+            //act
+            List<InvoiceDTO> invoices = new ParseInvoiceFile(fileStream).Parse().ToList();
+
+            //Assert.
+            Assert.Empty(invoices);
+        }
     }
 }

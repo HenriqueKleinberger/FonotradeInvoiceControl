@@ -1,4 +1,4 @@
-using FonotradeInvoiceControl.Constants;
+using FonotradeInvoiceControl.Constants.Excel.RegisterInvoice;
 using FonotradeInvoiceControl.DTO;
 using System;
 
@@ -8,7 +8,7 @@ namespace FonotradeInvoiceControlTest.Builder.DTO
     {
         private InvoiceFeedbackDTO _invoiceFeedbackDTO;
 
-        private string Feedback = InvoiceFeedback.REGISTERED;
+        private string Feedback = RegisterInvoiceFeedback.REGISTERED;
         private InvoiceDTO InvoiceDTO = new InvoiceDTOBuilder().Build();
 
         public InvoiceFeedbackDTOBuilder()

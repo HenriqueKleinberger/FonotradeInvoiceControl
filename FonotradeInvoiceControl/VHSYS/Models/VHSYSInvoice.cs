@@ -5,6 +5,9 @@ namespace FonotradeInvoiceControl.VHSYS.Models
 {
     public class VHSYSInvoice
     {
+        [JsonProperty("id_servico")]
+        public int ServiceId { get; set; }
+
         [JsonProperty("id_pedido")]
         public int RegisterId { get; set; }
 
