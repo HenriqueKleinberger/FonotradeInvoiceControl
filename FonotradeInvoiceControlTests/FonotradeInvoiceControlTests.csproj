@@ -43,6 +43,9 @@
     <None Update="files\one_person_registered.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="files\one_person_without_register_action.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="files\second_person_error_to_register.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

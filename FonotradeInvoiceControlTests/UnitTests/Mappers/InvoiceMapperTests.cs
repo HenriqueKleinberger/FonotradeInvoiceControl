@@ -4,6 +4,7 @@ using Xunit;
 using FonotradeInvoiceControl.Constants;
 using FonotradeInvoiceControl.VHSYS.Models;
 using FonotradeInvoiceControl.Mappers;
+using FonotradeInvoiceControl.Constants.Excel.RegisterInvoice;
 
 namespace FonotradeInvoiceControlTest.UnitTests.Mappers
 {
@@ -33,8 +34,9 @@ namespace FonotradeInvoiceControlTest.UnitTests.Mappers
 
             InvoiceFeedbackDTO invoiceFeedbackDTO = vhsysInvoice.ToInvoiceFeedbackDTO(invoiceDTO);
 
-            Assert.Equal(InvoiceFeedback.REGISTERED, invoiceFeedbackDTO.Feedback);
-            Assert.Equal(vhsysInvoice.RegisterId, invoiceFeedbackDTO.Id);
+            Assert.Equal(RegisterInvoiceFeedback.REGISTERED, invoiceFeedbackDTO.Feedback);
+            Assert.Equal(vhsysInvoice.RegisterId, invoiceFeedbackDTO.RegisteredId);
+            Assert.Equal(vhsysInvoice.ServiceId, invoiceFeedbackDTO.Id);
             Assert.Equal(invoiceDTO.Description, invoiceFeedbackDTO.InvoiceDTO.Description);
             Assert.Equal(invoiceDTO.TaxIdNumber, invoiceFeedbackDTO.InvoiceDTO.TaxIdNumber);
             Assert.Equal(invoiceDTO.Technician, invoiceFeedbackDTO.InvoiceDTO.Technician);

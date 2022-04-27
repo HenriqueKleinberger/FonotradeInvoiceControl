@@ -8,6 +8,7 @@ using FonotradeInvoiceControl.ExcelUtils.RegisterInvoice;
 using FonotradeInvoiceControl.Exceptions;
 using FonotradeInvoiceControlTest.Builder.DTO;
 using OfficeOpenXml;
+using FonotradeInvoiceControl.Constants.Excel.RegisterInvoice;
 
 namespace FonotradeInvoiceControlTest.UnitTests.ExcelUtils.RegisterInvoice
 {
@@ -35,8 +36,9 @@ namespace FonotradeInvoiceControlTest.UnitTests.ExcelUtils.RegisterInvoice
             using (ExcelPackage package = new ExcelPackage(stream))
             {
                 ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
-                Assert.Equal(invoiceFeedbackDTOs[0].Id.ToString(), worksheet.Cells[2, RegisterInvoiceExcelFile.REGISTERED_ID].Value.ToString());
-                Assert.Equal(invoiceFeedbackDTOs[0].Feedback.ToString(), worksheet.Cells[2, RegisterInvoiceExcelFile.FEEDBACK].Value.ToString());
+                Assert.Equal(invoiceFeedbackDTOs[0].RegisteredId.ToString(), worksheet.Cells[2, RegisterInvoiceCollumns.REGISTERED_ID].Value.ToString());
+                Assert.Equal(invoiceFeedbackDTOs[0].Id.ToString(), worksheet.Cells[2, RegisterInvoiceCollumns.SERVICE_ID].Value.ToString());
+                Assert.Equal(invoiceFeedbackDTOs[0].Feedback.ToString(), worksheet.Cells[2, RegisterInvoiceCollumns.FEEDBACK].Value.ToString());
             }
         }
 
@@ -61,8 +63,8 @@ namespace FonotradeInvoiceControlTest.UnitTests.ExcelUtils.RegisterInvoice
             using (ExcelPackage package = new ExcelPackage(stream))
             {
                 ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
-                Assert.Null(worksheet.Cells[2, RegisterInvoiceExcelFile.REGISTERED_ID].Value);
-                Assert.Null(worksheet.Cells[2, RegisterInvoiceExcelFile.FEEDBACK].Value);
+                Assert.Null(worksheet.Cells[2, RegisterInvoiceCollumns.REGISTERED_ID].Value);
+                Assert.Null(worksheet.Cells[2, RegisterInvoiceCollumns.FEEDBACK].Value);
             }
         }
 
@@ -87,8 +89,8 @@ namespace FonotradeInvoiceControlTest.UnitTests.ExcelUtils.RegisterInvoice
             using (ExcelPackage package = new ExcelPackage(stream))
             {
                 ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
-                Assert.Null(worksheet.Cells[2, RegisterInvoiceExcelFile.REGISTERED_ID].Value);
-                Assert.Null(worksheet.Cells[2, RegisterInvoiceExcelFile.FEEDBACK].Value);
+                Assert.Null(worksheet.Cells[2, RegisterInvoiceCollumns.REGISTERED_ID].Value);
+                Assert.Null(worksheet.Cells[2, RegisterInvoiceCollumns.FEEDBACK].Value);
             }
         }
     }

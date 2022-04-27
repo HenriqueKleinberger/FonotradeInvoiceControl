@@ -1,4 +1,4 @@
-using FonotradeInvoiceControl.Constants;
+using FonotradeInvoiceControl.Constants.Excel.RegisterInvoice;
 using FonotradeInvoiceControl.DTO;
 using FonotradeInvoiceControl.VHSYS.Models;
 
@@ -11,8 +11,9 @@ namespace FonotradeInvoiceControl.Mappers
         {
             InvoiceFeedbackDTO invoiceFeedbackDTO = new InvoiceFeedbackDTO()
             {
-                Feedback = InvoiceFeedback.REGISTERED,
-                Id = vhsysInvoice.RegisterId,
+                Feedback = RegisterInvoiceFeedback.REGISTERED,
+                RegisteredId = vhsysInvoice.RegisterId,
+                Id = vhsysInvoice.ServiceId,
                 InvoiceDTO = invoiceDTO
             };
 
