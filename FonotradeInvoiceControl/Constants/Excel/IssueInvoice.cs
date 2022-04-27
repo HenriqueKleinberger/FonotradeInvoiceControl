@@ -1,6 +1,6 @@
-﻿namespace FonotradeInvoiceControl.Constants.Excel.RegisterInvoice
+﻿namespace FonotradeInvoiceControl.Constants.Excel.IssueInvoice
 {
-    public static class RegisterInvoiceCollumns
+    public static class IssueInvoiceCollumns
     {
         public static readonly int FIRST_TABLE_ROW = 2;
         public static readonly int TAX_ID_NUMBER = 5;
@@ -14,13 +14,13 @@
         public static readonly int INVOICE_NUMBER = 13;
     }
 
-    public static class RegisterInvoiceActions
+    public static class IssueInvoiceActions
     {
-        public static readonly string REGISTER = "CADASTRAR";
+        public static readonly string ISSUE = "EMITIR";
     }
 
-    public static class RegisterInvoiceFeedback
+    public static class IssueInvoiceFeedback
     {
-        public static readonly string REGISTERED = "CADASTRADO";
+        public static readonly string ISSUED = "EMITIDO";
     }
 }

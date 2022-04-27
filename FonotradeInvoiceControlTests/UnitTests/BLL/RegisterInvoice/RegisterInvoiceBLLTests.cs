@@ -18,14 +18,14 @@ namespace FonotradeInvoiceControlTest.UnitTests.BLL.RegisterInvoice
 
         private readonly Mock<ILogger<RegisterInvoiceBLL>> _loggerMock;
         private readonly Mock<IVHSYSClientService> _vhsysClientServiceMock;
-        private readonly Mock<IVHSYSInvoiceService> _vhsysInvoiceServiceMock;
+        private readonly Mock<IVHSYSRegisterInvoiceService> _vhsysInvoiceServiceMock;
         private RegisterInvoiceBLL _registerInvoiceBLL;
 
         public RegisterInvoiceBLLTests()
         {
             _loggerMock = new Mock<ILogger<RegisterInvoiceBLL>>();
             _vhsysClientServiceMock = new Mock<IVHSYSClientService>();
-            _vhsysInvoiceServiceMock = new Mock<IVHSYSInvoiceService>();
+            _vhsysInvoiceServiceMock = new Mock<IVHSYSRegisterInvoiceService>();
         }
 
         [Fact]

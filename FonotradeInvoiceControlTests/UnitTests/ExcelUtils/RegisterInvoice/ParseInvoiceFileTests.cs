@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using Xunit;
 using System.Linq;
-using FonotradeInvoiceControl.ExcelUtils.RegisterInvoice;
 using FonotradeInvoiceControl.Exceptions;
+using FonotradeInvoiceControl.ExcelUtils;
+using FonotradeInvoiceControl.ExcelUtils.Parse;
 
 namespace FonotradeInvoiceControlTest.UnitTests.ExcelUtils.RegisterInvoice
 {
@@ -23,7 +24,7 @@ namespace FonotradeInvoiceControlTest.UnitTests.ExcelUtils.RegisterInvoice
             FileStream fileStream = File.OpenRead(_filePath);
 
             //act
-            List<InvoiceDTO> invoices = new ParseInvoiceFile(fileStream).Parse().ToList();
+            List<InvoiceDTO> invoices = new ParseRegisterFile(fileStream).Parse().ToList();
 
             //Assert.
             InvoiceDTO invoice = invoices[0];
@@ -44,7 +45,7 @@ namespace FonotradeInvoiceControlTest.UnitTests.ExcelUtils.RegisterInvoice
             FileStream fileStream = File.OpenRead(_filePath);
 
             //act
-            var exception = Assert.Throws<ParseInvoiceFileException>(() => new ParseInvoiceFile(fileStream).Parse());
+            var exception = Assert.Throws<ParseInvoiceFileException>(() => new ParseRegisterFile(fileStream).Parse());
 
             //Assert.
             Assert.Equal("Não foi possivel analisar a planilha Excel. Erro planilha excel na linha: 3. Object reference not set to an instance of an object.", exception.Message);
@@ -59,7 +60,7 @@ namespace FonotradeInvoiceControlTest.UnitTests.ExcelUtils.RegisterInvoice
             FileStream fileStream = File.OpenRead(_filePath);
 
             //act
-            List<InvoiceDTO> invoices = new ParseInvoiceFile(fileStream).Parse().ToList();
+            List<InvoiceDTO> invoices = new ParseRegisterFile(fileStream).Parse().ToList();
 
             //Assert.
             Assert.Empty(invoices);
@@ -74,7 +75,7 @@ namespace FonotradeInvoiceControlTest.UnitTests.ExcelUtils.RegisterInvoice
             FileStream fileStream = File.OpenRead(_filePath);
 
             //act
-            List<InvoiceDTO> invoices = new ParseInvoiceFile(fileStream).Parse().ToList();
+            List<InvoiceDTO> invoices = new ParseRegisterFile(fileStream).Parse().ToList();
 
             //Assert.
             Assert.Empty(invoices);

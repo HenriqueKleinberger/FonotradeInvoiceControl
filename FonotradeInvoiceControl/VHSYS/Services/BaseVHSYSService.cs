@@ -19,7 +19,7 @@ namespace FonotradeInvoiceControl.VHSYS.Services
             _config = config;
             _vhsysService = vhsysService;
         }
-        protected void ValidateResponse(IRestResponse response)
+        public void ValidateResponse(IRestResponse response)
         {
             JObject jObject = JObject.Parse(response.Content);
             if (jObject["code"].ToString() == BaseResponse.ERROR_CODE.ToString())

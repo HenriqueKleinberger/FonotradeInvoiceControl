@@ -1,9 +1,6 @@
 using FonotradeInvoiceControl.VHSYS.Models;
 using FonotradeInvoiceControl.VHSYS.Models.Response;
-using FonotradeInvoiceControl.VHSYS.Models.Responses;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
 
 namespace FonotradeInvoiceControlTest.Builder.VHSYS
 {
@@ -13,7 +10,7 @@ namespace FonotradeInvoiceControlTest.Builder.VHSYS
 
         private string status = StatusCodes.Status200OK.ToString();
         private int code = StatusCodes.Status200OK;
-        private VHSYSInvoice Data = new VHSYSInvoiceBuilder().Build();
+        private VHSYSRegisterInvoice Data = new VHSYSRegisterInvoiceBuilder().Build();
 
         public VHSYSRegisterInvoiceResponseBuilder()
         {
@@ -34,7 +31,7 @@ namespace FonotradeInvoiceControlTest.Builder.VHSYS
             return this;
         }
 
-        public VHSYSRegisterInvoiceResponseBuilder WithData(VHSYSInvoice data)
+        public VHSYSRegisterInvoiceResponseBuilder WithData(VHSYSRegisterInvoice data)
         {
             _vhsysRegisterInvoiceResponse.data = data;
             return this;

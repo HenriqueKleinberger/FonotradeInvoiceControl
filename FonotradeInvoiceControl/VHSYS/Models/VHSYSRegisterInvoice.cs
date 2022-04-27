@@ -3,7 +3,7 @@ using System;
 
 namespace FonotradeInvoiceControl.VHSYS.Models
 {
-    public class VHSYSInvoice
+    public class VHSYSRegisterInvoice
     {
         [JsonProperty("id_servico")]
         public int ServiceId { get; set; }

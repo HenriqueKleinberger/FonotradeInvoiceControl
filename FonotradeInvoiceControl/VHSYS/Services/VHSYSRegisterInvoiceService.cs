@@ -9,9 +9,9 @@ using FonotradeInvoiceControl.Mappers;
 
 namespace FonotradeInvoiceControl.VHSYS.Services
 {
-    public class VHSYSInvoiceService : BaseVHSYSService, IVHSYSInvoiceService
+    public class VHSYSRegisterInvoiceService : BaseVHSYSService, IVHSYSRegisterInvoiceService
     {
-        public VHSYSInvoiceService(IConfiguration config, IVHSYSService vhsysService) : base(config, vhsysService)
+        public VHSYSRegisterInvoiceService(IConfiguration config, IVHSYSService vhsysService) : base(config, vhsysService)
         {
         }
 
