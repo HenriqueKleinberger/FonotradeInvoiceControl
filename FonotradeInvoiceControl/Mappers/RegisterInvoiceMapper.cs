@@ -4,10 +4,10 @@ using FonotradeInvoiceControl.VHSYS.Models;
 
 namespace FonotradeInvoiceControl.Mappers
 {
-    public static class InvoiceMapper
+    public static class RegisterInvoiceMapper
     {
 
-        public static InvoiceFeedbackDTO ToInvoiceFeedbackDTO(this VHSYSInvoice vhsysInvoice, InvoiceDTO invoiceDTO)
+        public static InvoiceFeedbackDTO ToInvoiceFeedbackDTO(this VHSYSRegisterInvoice vhsysInvoice, InvoiceDTO invoiceDTO)
         {
             InvoiceFeedbackDTO invoiceFeedbackDTO = new InvoiceFeedbackDTO()
             {

@@ -2,7 +2,7 @@ using FonotradeInvoiceControl.DTO;
 
 namespace FonotradeInvoiceControl.VHSYS.Services.Interfaces
 {
-    public interface IVHSYSInvoiceService
+    public interface IVHSYSRegisterInvoiceService
     {
         public InvoiceFeedbackDTO RegisterInvoice(InvoiceDTO invoice, ClientDTO clientDTO);
     }

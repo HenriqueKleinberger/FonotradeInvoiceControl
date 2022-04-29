@@ -13,7 +13,9 @@ namespace FonotradeInvoiceControl.Utils
         public static void InjectCommonDependencies(IServiceCollection services)
         {
             services.AddScoped<IRegisterInvoiceBLL, RegisterInvoiceBLL>();
-            services.AddScoped<IVHSYSInvoiceService, VHSYSInvoiceService>();
+            services.AddScoped<IIssueInvoiceBLL, IssueInvoiceBLL>();
+            services.AddScoped<IVHSYSRegisterInvoiceService, VHSYSRegisterInvoiceService>();
+            services.AddScoped<IVHSYSIssueInvoiceService, VHSYSIssueInvoiceService>();
             services.AddScoped<IVHSYSClientService, VHSYSClientService>();
             services.AddTransient<IVHSYSClient, VHSYSClient>();
         }

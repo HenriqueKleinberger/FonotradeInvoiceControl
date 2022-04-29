@@ -7,6 +7,7 @@ namespace FonotradeInvoiceControlTest.Builder.DTO
     {
         private InvoiceDTO _invoiceDTO;
 
+        private int ServiceId;
         private string TaxIdNumber = "001.477.870-09";
         private string Description = "Description";
         private string Technician = "Technician";
@@ -15,11 +16,18 @@ namespace FonotradeInvoiceControlTest.Builder.DTO
         public InvoiceDTOBuilder()
         {
             _invoiceDTO = new InvoiceDTO();
+            _invoiceDTO.ServiceId = this.ServiceId;
             _invoiceDTO.TaxIdNumber = this.TaxIdNumber;
             _invoiceDTO.Description = this.Description;
             _invoiceDTO.Technician = this.Technician;
             _invoiceDTO.Value = this.Value;
         }
+        public InvoiceDTOBuilder WithServiceId(int serviceInvoice)
+        {
+            _invoiceDTO.ServiceId = serviceInvoice;
+            return this;
+        }
+
         public InvoiceDTOBuilder WithTaxIdNumber(string taxIdNumber)
         {
             _invoiceDTO.TaxIdNumber = taxIdNumber;
