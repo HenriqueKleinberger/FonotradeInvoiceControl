@@ -13,7 +13,7 @@ namespace FonotradeInvoiceControl.ExcelUtils.Parse
         protected override bool ShouldParseRow(int row)
         {
             bool isAlreadyRegistered = _worksheet.Cells[row, RegisterInvoiceCollumns.FEEDBACK]?.Value?.ToString() == RegisterInvoiceFeedback.REGISTERED;
-            bool needsToBeRegistered = _worksheet.Cells[row, RegisterInvoiceCollumns.ACTION].Value.ToString() == RegisterInvoiceActions.REGISTER;
+            bool needsToBeRegistered = _worksheet.Cells[row, RegisterInvoiceCollumns.ACTION]?.Value?.ToString() == RegisterInvoiceActions.REGISTER;
             return !isAlreadyRegistered && needsToBeRegistered;
         }
 
@@ -21,10 +21,10 @@ namespace FonotradeInvoiceControl.ExcelUtils.Parse
         {
             return new InvoiceDTO()
             {
-                TaxIdNumber = _worksheet.Cells[row, RegisterInvoiceCollumns.TAX_ID_NUMBER].Value.ToString(),
-                Description = _worksheet.Cells[row, RegisterInvoiceCollumns.DESCRIPTION].Value.ToString(),
-                Technician = _worksheet.Cells[row, RegisterInvoiceCollumns.TECHNICIAN].Value.ToString(),
-                Value = decimal.Parse(_worksheet.Cells[row, RegisterInvoiceCollumns.VALUE].Value.ToString())
+                TaxIdNumber = _worksheet.Cells[row, RegisterInvoiceCollumns.TAX_ID_NUMBER]?.Value?.ToString(),
+                Description = _worksheet.Cells[row, RegisterInvoiceCollumns.DESCRIPTION]?.Value?.ToString(),
+                Technician = _worksheet.Cells[row, RegisterInvoiceCollumns.TECHNICIAN]?.Value?.ToString(),
+                Value = decimal.Parse(_worksheet.Cells[row, RegisterInvoiceCollumns.VALUE]?.Value?.ToString())
             };
         }
     }

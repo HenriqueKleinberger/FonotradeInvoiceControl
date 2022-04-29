@@ -44,12 +44,7 @@ namespace FonotradeInvoiceControl.ExcelUtils.GenerateFeedback
 
         protected abstract void GenerateFeedback(int row, InvoiceFeedbackDTO invoiceFeedback);
 
-        private bool FeedbackIsForThisLine(InvoiceFeedbackDTO invoiceFeedback, int row)
-        {
-            bool isTheSamePerson = _package.Workbook.Worksheets[0].Cells[row, RegisterInvoiceCollumns.TAX_ID_NUMBER].Value.ToString() == invoiceFeedback.InvoiceDTO.TaxIdNumber;
-            bool isTheSameTechnician = _package.Workbook.Worksheets[0].Cells[row, RegisterInvoiceCollumns.TECHNICIAN].Value.ToString() == invoiceFeedback.InvoiceDTO.Technician;
-            return isTheSamePerson && isTheSameTechnician;
-        }
+        protected abstract bool FeedbackIsForThisLine(InvoiceFeedbackDTO invoiceFeedback, int row);
 
         private Stream GetGeneratedPackage()
         {

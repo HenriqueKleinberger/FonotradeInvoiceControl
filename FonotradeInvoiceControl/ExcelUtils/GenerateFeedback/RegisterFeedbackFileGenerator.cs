@@ -19,5 +19,12 @@ namespace FonotradeInvoiceControl.ExcelUtils.GenerateFeedback
             _package.Workbook.Worksheets[0].Cells[row, RegisterInvoiceCollumns.SERVICE_ID].Value = invoiceFeedback.Id.ToString();
             _package.Workbook.Worksheets[0].Cells[row, RegisterInvoiceCollumns.FEEDBACK].Value = invoiceFeedback.Feedback;
         }
+
+        protected override bool FeedbackIsForThisLine(InvoiceFeedbackDTO invoiceFeedback, int row)
+        {
+            bool isTheSamePerson = _package.Workbook.Worksheets[0].Cells[row, RegisterInvoiceCollumns.TAX_ID_NUMBER].Value.ToString() == invoiceFeedback.InvoiceDTO.TaxIdNumber;
+            bool isTheSameTechnician = _package.Workbook.Worksheets[0].Cells[row, RegisterInvoiceCollumns.TECHNICIAN].Value.ToString() == invoiceFeedback.InvoiceDTO.Technician;
+            return isTheSamePerson && isTheSameTechnician;
+        }
     }
 }
