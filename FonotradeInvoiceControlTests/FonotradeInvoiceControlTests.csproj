@@ -40,6 +40,9 @@
     <None Update="files\invoice_file_template.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="files\one_person_to_issue.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="files\one_person_registered.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

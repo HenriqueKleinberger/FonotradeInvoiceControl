@@ -40,6 +40,15 @@ namespace FonotradeInvoiceControl.VHSYS.Services
             return _vhsysClient.Post(_request);
         }
 
+        public IRestResponse Post(string url)
+        {
+            _url = url;
+
+            ConfigRequest();
+
+            return _vhsysClient.Post(_request);
+        }
+
         private void ConfigRequest()
         {
             _request = new RestRequest(_url, DataFormat.Json);

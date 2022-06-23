@@ -1,9 +1,6 @@
-﻿using Newtonsoft.Json;
-using System;
-
-namespace FonotradeInvoiceControl.VHSYS.Models.Response
+﻿namespace FonotradeInvoiceControl.VHSYS.Models.Response
 {
-    public class VHSYSRegisterInvoiceResponse : VHSYSBaseResponse<VHSYSInvoice>
+    public class VHSYSRegisterInvoiceResponse : VHSYSBaseResponse<VHSYSRegisterInvoice>
     {
     }
 }

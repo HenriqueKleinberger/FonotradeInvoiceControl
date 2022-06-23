@@ -3,16 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Xunit;
-using System.Linq;
-using FonotradeInvoiceControl.ExcelUtils.RegisterInvoice;
-using FonotradeInvoiceControl.Exceptions;
 using FonotradeInvoiceControlTest.Builder.DTO;
 using OfficeOpenXml;
 using FonotradeInvoiceControl.Constants.Excel.RegisterInvoice;
+using FonotradeInvoiceControl.ExcelUtils.GenerateFeedback;
 
 namespace FonotradeInvoiceControlTest.UnitTests.ExcelUtils.RegisterInvoice
 {
-    public class InvoiceFeedbackFileGeneratorTests
+    public class RegisterFeedbackFileGeneratorTests
     {
         private string _filePath;
 
@@ -30,7 +28,7 @@ namespace FonotradeInvoiceControlTest.UnitTests.ExcelUtils.RegisterInvoice
             };
 
             //act
-            Stream stream = new InvoiceFeedbackFileGenerator(fileStream, invoiceFeedbackDTOs).Generate();
+            Stream stream = new RegisterFeedbackFileGenerator(fileStream, invoiceFeedbackDTOs).Generate();
 
             //Assert.
             using (ExcelPackage package = new ExcelPackage(stream))
@@ -57,7 +55,7 @@ namespace FonotradeInvoiceControlTest.UnitTests.ExcelUtils.RegisterInvoice
             };
 
             //act
-            Stream stream = new InvoiceFeedbackFileGenerator(fileStream, invoiceFeedbackDTOs).Generate();
+            Stream stream = new RegisterFeedbackFileGenerator(fileStream, invoiceFeedbackDTOs).Generate();
 
             //Assert.
             using (ExcelPackage package = new ExcelPackage(stream))
@@ -83,7 +81,7 @@ namespace FonotradeInvoiceControlTest.UnitTests.ExcelUtils.RegisterInvoice
             };
 
             //act
-            Stream stream = new InvoiceFeedbackFileGenerator(fileStream, invoiceFeedbackDTOs).Generate();
+            Stream stream = new RegisterFeedbackFileGenerator(fileStream, invoiceFeedbackDTOs).Generate();
 
             //Assert.
             using (ExcelPackage package = new ExcelPackage(stream))

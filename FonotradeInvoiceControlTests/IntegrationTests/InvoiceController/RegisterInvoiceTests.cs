@@ -14,9 +14,9 @@ using FonotradeInvoiceControl.VHSYS.Models;
 using FonotradeInvoiceControl.VHSYS.Models.Responses;
 using FonotradeInvoiceControl.VHSYS.Models.Response;
 
-namespace FonotradeInvoiceControlTest.IntegrationTests
+namespace FonotradeInvoiceControlTest.IntegrationTests.InvoiceController
 {
-    public class InvoiceControllerTests : IntegrationTest
+    public class RegisterInvoiceTests : IntegrationTest
     {
         private string _filePath;
         private VHSYSClient _client;
@@ -54,7 +54,7 @@ namespace FonotradeInvoiceControlTest.IntegrationTests
         private void MockPostInvoiceResponseSuccess()
         {
             VHSYSRegisterInvoiceResponse mockResponse = new VHSYSRegisterInvoiceResponseBuilder()
-                .WithData(new VHSYSInvoiceBuilder().WithClient(_client).Build())
+                .WithData(new VHSYSRegisterInvoiceBuilder().WithClient(_client).Build())
                 .Build();
             _vhsysServiceMock.Setup(s => s.Post(It.IsAny<String>(), It.IsAny<String>())).Returns(new RestResponse<ClientDTO>
             {

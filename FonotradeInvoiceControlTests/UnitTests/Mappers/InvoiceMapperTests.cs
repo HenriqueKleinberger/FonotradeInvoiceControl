@@ -14,7 +14,7 @@ namespace FonotradeInvoiceControlTest.UnitTests.Mappers
         public void WhenVHSYSInvoiceIsMappedToInvoiceFeedbackDTO_ShouldReturnInvoiceFeedbackDTOWithRightInfos()
         {
             //Arrange
-            VHSYSInvoice vhsysInvoice = new VHSYSInvoice()
+            VHSYSRegisterInvoice vhsysInvoice = new VHSYSRegisterInvoice()
             {
                 ClientId = 1234,
                 ClientName = "Matheus Prates",
