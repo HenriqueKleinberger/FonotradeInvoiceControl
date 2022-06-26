@@ -32,7 +32,7 @@ namespace FonotradeInvoiceControl
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   policy =>
                                   {
-                                      policy.WithOrigins("http://localhost:3000")
+                                      policy.WithOrigins("https://fonotrade-invoice-control.vercel.app")
                                       .AllowAnyMethod()
                                       .WithHeaders("Authorization")
                                       .WithExposedHeaders(Constants.ResponseHeaders.SUGGESTED_FILENAME); ;
