@@ -19,6 +19,7 @@ namespace FonotradeInvoiceControl
     public class Startup
     {
         public IConfiguration Configuration { get; set; }
+        private readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -26,7 +27,18 @@ namespace FonotradeInvoiceControl
             SetConfig(services);
 
             DependencyInjector.InjectCommonDependencies(services);
-            
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  policy =>
+                                  {
+                                      policy.WithOrigins("http://localhost:3000")
+                                      .AllowAnyMethod()
+                                      .WithHeaders("Authorization")
+                                      .WithExposedHeaders(Constants.ResponseHeaders.SUGGESTED_FILENAME); ;
+                                  });
+            });
+
             services
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -95,9 +107,9 @@ namespace FonotradeInvoiceControl
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseMiddleware<ErrorHandlerMiddleware>();
             app.UseEndpoints(endpoints =>
             {

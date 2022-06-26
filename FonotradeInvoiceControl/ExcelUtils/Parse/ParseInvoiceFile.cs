@@ -39,7 +39,7 @@ namespace FonotradeInvoiceControl.ExcelUtils.Parse
             }
             return _invoices;
         }
-
+            
         private void AddInvoiceByRow(int row)
         {
             try

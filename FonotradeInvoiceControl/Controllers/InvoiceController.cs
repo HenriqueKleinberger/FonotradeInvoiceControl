@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 using FonotradeInvoiceControl.ExcelUtils.GenerateFeedback;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FonotradeInvoiceControl.Controllers
 {
@@ -40,13 +41,16 @@ namespace FonotradeInvoiceControl.Controllers
         /// <param name="file">Arquivo com os dados das notas fiscais que serão enviadas para a VHSYS</param>
         /// <response code="200">Retorno de sucesso com o arquivo excel de feedback da VHSYS</response>
         [HttpPost("register/VHSYS")]
+        [Authorize]
         [Produces("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")]
         public IActionResult RegisterInvoice(IFormFile file)
         {
             Stream stream = file.OpenReadStream();
             List<InvoiceFeedbackDTO> invoicesFeedbackDTO = _registerInvoiceBLL.RegisterInvoicesFromFile(stream);
             var responseStream = new RegisterFeedbackFileGenerator(stream, invoicesFeedbackDTO).Generate();
-            return base.File(responseStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", GetFeedbackFileName(file));
+            string fileName = GetFeedbackFileName(file);
+            Response.Headers.Add(Constants.ResponseHeaders.SUGGESTED_FILENAME, fileName);
+            return base.File(responseStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         }
 
         private string GetFeedbackFileName(IFormFile file)
@@ -70,6 +74,7 @@ namespace FonotradeInvoiceControl.Controllers
         /// <param name="file">Arquivo com os dados das notas fiscais que serão enviadas para a VHSYS</param>
         /// <response code="200">Retorno de sucesso com o arquivo excel de feedback da VHSYS</response>
         [HttpPost("issue/VHSYS")]
+        [Authorize]
         [Produces("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")]
         public IActionResult IssueInvoice(IFormFile file)
         {
